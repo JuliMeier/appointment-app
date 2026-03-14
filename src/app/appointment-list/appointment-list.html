@@ -1,0 +1,107 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h1 class="card-title text-center text-primary mb-4">Mis Tareas</h1>
+            
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Descripción de la tarea" 
+                  [(ngModel)]="newAppointmentTitle"
+                />
+              </div>
+              <div class="col-md-4">
+                <input 
+                  type="date" 
+                  class="form-control" 
+                  [(ngModel)]="newAppointmentDate"
+                />
+              </div>
+              <div class="col-md-2">
+                <button 
+                  (click)="addAppointment()" 
+                  class="btn btn-success w-100"
+                  [disabled]="!newAppointmentTitle.trim() || !newAppointmentDate"
+                >
+                  ➕ Agregar
+                </button>
+              </div>
+            </div>
+  
+            <hr>
+  
+            <h2 class="h4 text-secondary mb-3">Tareas Pendientes</h2>
+            
+            @if (activeTasks().length > 0) {
+              <ul class="list-group list-group-flush">
+                @for (appointment of activeTasks(); track appointment.id) {
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center flex-grow-1">
+                      <input 
+                        type="checkbox"
+                        class="form-check-input appointment-checkbox me-3"
+                        [checked]="appointment.completed"
+                        (change)="toggleTaskCompletion(appointment)"
+                        [attr.aria-label]="'Marcar ' + appointment.title + ' como completada'"
+                      />
+                      <div>
+                        <span class="fw-bold">{{ appointment.title }}</span>
+                        <br>
+                        <small class="text-muted">{{ appointment.date | date:"dd/MM/yyyy" }}</small>
+                      </div>
+                    </div>
+                    <button 
+                      (click)="removeAppointment(appointment.id)" 
+                      class="btn btn-sm btn-danger"
+                    >
+                      🗑️ Eliminar
+                    </button>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="text-center text-muted mt-4">✅ No hay tareas pendientes por aquí!</p>
+            }
+
+            <h2 class="h4 text-secondary mb-3 mt-5">Tareas Completadas</h2>
+            
+            @if (completedTasks().length > 0) {
+              <ul class="list-group list-group-flush">
+                @for (appointment of completedTasks(); track appointment.id) {
+                  <li class="list-group-item d-flex justify-content-between align-items-center appointment-item completed">
+                    <div class="d-flex align-items-center flex-grow-1">
+                      <input 
+                        type="checkbox"
+                        class="form-check-input appointment-checkbox me-3"
+                        [checked]="appointment.completed"
+                        (change)="toggleTaskCompletion(appointment)"
+                        [attr.aria-label]="'Marcar ' + appointment.title + ' como incompleta'"
+                      />
+                      <div>
+                        <span class="fw-bold">{{ appointment.title }}</span>
+                        <br>
+                        <small class="text-muted">{{ appointment.date | date:"dd/MM/yyyy" }}</small>
+                      </div>
+                    </div>
+                    <button 
+                      (click)="removeAppointment(appointment.id)" 
+                      class="btn btn-sm btn-danger"
+                    >
+                      🗑️ Eliminar
+                    </button>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="text-center text-muted mt-4">No hay tareas completadas aún</p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

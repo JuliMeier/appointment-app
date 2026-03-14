@@ -1,0 +1,54 @@
+.appointment-checkbox {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.appointment-item.completed {
+  background-color: #f8f9fa;
+  opacity: 0.85;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.appointment-item.completed .fw-bold {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.appointment-item.completed .text-muted {
+  color: #9ca3af !important;
+}
+
+.list-group-item {
+  transition: background-color 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.appointment-item.completed:hover {
+  background-color: #e9ecef;
+}
+
+/* Accessibility: Ensure sufficient color contrast */
+.appointment-item.completed {
+  color: #495057;
+}
+
+/* Smooth transitions for checkbox changes */
+input.form-check-input {
+  transition: all 0.2s ease;
+}
+
+input.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Active tasks section clarity */
+h2.h4.text-secondary {
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
